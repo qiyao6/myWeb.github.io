@@ -1,0 +1,387 @@
+<!DOCTYPE html style="height: 100%; overflow: hidden; --primary-color: #1890ff; --search-height: 46px; --search-radius: 23px; --search-bgColor: rgba(var(--alpha-bg), 0.7); --icon-radius: 16px; --icon-size: 60px; --icon-gap-x: 30px; --icon-gap-y: 30px; --icon-max-width: 1350px; --icon-opacity: 1; --icon-name: block; --icon-nameSize: 12px; --icon-nameColor: #fff; --time-size: 70px; --time-font: HarmonyOS_Sans; --time-color: #fff; --time-fontWeight: 400; --time-month: inline; --time-week: inline; --time-lunar: inline; --time-sec: none; --sidebar-width: 50px; --sidebar-opacity: 0.5; --wall-mask: 0; --wall-blur: 0px;">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>我的首页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: rgb(10, 85, 146);
+        }
+
+        #app {
+            width: 1519px;
+            height: 100vh;
+            background-image: url(https://s2.loli.net/2023/09/17/oGad5UIiAP4ycMs.webp);
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .header {
+            width: 100%;
+            height: 78px;
+            background-color: rgba(127, 255, 212, 0.429);
+        }
+
+        .header li {
+            float: left;
+            width: 100px;
+            height: 100%;
+            margin-left: 30px;
+            line-height: 78px;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .header li:hover {
+            height: 50px;
+            background-color: rgba(7, 196, 218, 0.8);
+            border-radius: 10px;
+            box-sizing: border-box;
+            line-height: 50px;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .header li:active {
+            background-color: rgb(12, 201, 65);
+        }
+
+        .header li:hover>a {
+            color: rgb(10, 141, 158);
+        }
+
+        .search {
+            position: absolute;
+            top: 30%;
+            left: 35%;
+        }
+
+        .search>input {
+            width: 350px;
+            height: 40px;
+            border: 0;
+            outline: none;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            padding-left: 10px;
+            background-color: rgb(7 182 180 / 74%);
+            color: rgb(252, 85, 1);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .search_xia {
+            display: none;
+            position: absolute;
+            width: 340px;
+            margin-left: 10px;
+            background-color: rgba(13, 232, 159, 0.811);
+            z-index: 1;
+        }
+
+        .search input:focus~.search_xia {
+            display: block;
+        }
+
+        .search_xia:active {
+            display: block;
+        }
+
+        .search_xia ul>li {
+            display: block;
+            width: 350px;
+            height: 50px;
+            margin-left: 20px;
+            line-height: 50px;
+        }
+
+        .search_xia li a:hover {
+            display: block;
+            width: 90%;
+            height: 50px;
+            line-height: 50px;
+            background-color: #9b9898;
+            box-sizing: border-box;
+        }
+
+        .search>input::placeholder {
+            color: #ffffff88;
+        }
+
+        .search>input:hover {
+            background-color: rgb(7 191 34 / 31%);
+        }
+
+
+
+        .search>input:focus {
+            outline: 1px solid rgb(2, 250, 39);
+        }
+
+        .search>input:focus~button {
+            outline: 1px solid rgb(2, 250, 39);
+        }
+
+        .search>button {
+            width: 100px;
+            height: 40px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
+            position: absolute;
+            border: 0;
+            background-color: #4494d5;
+        }
+
+        .search>button:hover {
+            background-color: #2288db;
+        }
+
+        .search>button:active {
+            background-color: #2288dbb0;
+        }
+
+        /* 时间显示 */
+        .clock {
+            position: absolute;
+            left: 50%;
+            margin-left: -70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            /* width: 500px; */
+            padding: 10px;
+            height: 70px;
+            font-size: 50px;
+            font-weight: 700;
+            border-radius: 10px;
+            background-color: rgba(250, 235, 215, 0.347);
+        }
+
+        .clock>p {
+            display: inline-block;
+            color: #f5bc5e;
+        }
+
+        #p7 {
+            font-size: 18px;
+            position: absolute;
+            top: 38px;
+            left: 633px;
+            color: chartreuse;
+            z-index: 1;
+        }
+
+        /* 工具区 */
+        .tools {
+            display: flex;
+            width: 600px;
+            height: 350px;
+            background-color: #2288db00;
+            box-shadow: 0 0 16px 0px cadetblue;
+            z-index: 0;
+            position: relative;
+            left: 50%;
+            margin-top: 250px;
+            margin-left: -300px;
+            border-radius: 20px;
+        }
+
+        .tools>ul {
+            display: flex;
+            width: inherit;
+            height: inherit;
+            margin: 25px;
+            text-align: center;
+        }
+
+        .tools li {
+            width: 60px;
+            height: 70px;
+            margin: 5px;
+        }
+
+        .tools li:hover img {
+            background-color: #800a78;
+        }
+
+        .tools li:active img {
+            background-color: #911688;
+        }
+
+        .tools li img {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            vertical-align: middle;
+            background-color: #e505d6;
+        }
+
+        .tools li p {
+            color: #000;
+            font-size: 10px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="wrap">
+            <!-- 头部导航 -->
+            <div class="header">
+                <ul>
+                    <li><a href="https://www.xxvtc.edu.cn/index.htm" target="_blank">学校官网</a></li>
+                    <li><a href="https://edu.zztion.com/shop/index" target="_blank">中职通</a></li>
+                    <li><a href="https://yiyan.baidu.com/" target="_blank">文心一言</a></li>
+                    <li><a href="https://www.bilibili.com/" target="_blank">哔哩哔哩</a></li>
+                    <li><a href="https://icve-mooc.icve.com.cn/cms/" targrt="_blank">心理慕课</a></li>
+                    <li><a href="https://kejian.zzhitong.com/#html" targrt="_blank">前端笔记</a></li>
+                    <li><a href="https://www.byhy.net" targrt="_blank">白月黑羽</a></li>
+                </ul>
+            </div>
+            <!-- 搜索导航 -->
+            <div class="search">
+                <input type="text" placeholder="主人，请输入您想要搜索的内容" id="inp">
+                <button onclick="search()" id="btn">搜索</button>
+                <div class="search_xia">
+                    <ul id="list"></ul>
+                </div>
+            </div>
+            <!-- 日期导航 -->
+            <div class="clock">
+                <p id="p4"></p>
+                <p id="p5"></p>
+            </div>
+            <!-- 工具区 -->
+            <div class="tools">
+                <ul>
+                    <li>
+                        <a href="https://v.qq.com/" target="_blank">
+                            <img src="https://files.codelife.cc/icons/qqvideo.svg" alt="">
+                            <p>腾讯视频</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://i.chaoxing.com/base?t=1664770430715" target="_blank">
+                            <img src="https://files.codelife.cc/icons/chaoxing.svg" alt="">
+                            <p>学习通</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://translate.volcengine.com/" target="_blank">
+                            <img src="https://files.codelife.cc/icons/translate.volcengine.com.svg" alt="">
+                            <p>火山翻译</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/qiyao6" target="_blank">
+                            <img src="https://files.codelife.cc/icons/github.svg" alt="">
+                            <p>Github</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a target="_blank">
+                            <img src="https://files.codelife.cc/icons/add.svg" alt="" style="background-color: #fff">
+                            <p>添加</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 搜索框行为
+        var input = document.getElementById('inp');
+        // 当按回车键后的行为
+        input.addEventListener("keyup", function (event) {
+            event.preventDefault();
+            if (event.keyCode == 13) {
+                search();
+                console.log("回车");
+            }
+        })
+        function search() {
+            var inpValue = input.value;
+            if (inpValue !== '') {
+                console.log(inpValue);
+                var url = 'http://www.baidu.com/s?wd=' + inpValue;
+                window.open(url);
+            }
+        }
+        setInterval(() => {
+            clock();
+        }, 1000)
+        // 获取页面元素
+        var p4 = document.getElementById('p4');
+        var p5 = document.getElementById('p5');
+
+        var inp = document.getElementById("inp");
+        var oUl = document.getElementById("list");
+        var oBtn = document.getElementById("btn");
+        // 时间函数
+        function clock() {
+            // 获取时间
+            var hour = new Date().getHours();
+            var minute = new Date().getMinutes();
+            // 判断并补位
+            if (minute < 10) {
+                var minute1 = "0" + minute;
+            } else {
+                minute1 = minute;
+            }
+            if (hour < 10) {
+                var hour1 = "0" + hour;
+            } else {
+                hour1 = hour;
+            }
+            // 添加时间
+            p4.innerHTML = hour + ":";
+            p5.innerHTML = minute1;
+        }
+        // 搜索提示
+        inp.onkeyup = function () {
+            oUl.innerHTML = "";
+            var val = inp.value;
+            var oScript = document.createElement("script");//动态创建script标签
+            oScript.src = "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + val + "&cb=callback";
+            //添加链接及回调函数
+            document.body.appendChild(oScript);//添加script标签
+            document.body.removeChild(oScript);//删除script标签
+        }
+        //回调函数
+        function callback(data) {
+            data.s.forEach(function (value) {
+                // 显示6条数据
+                if (oUl.childElementCount <= 5) {
+                    var oLi = document.createElement("li");
+                    oLi.innerHTML = "<a href=\"https://www.baidu.com/s?wd=" + value + "\" target='_blank'>" + value + "</a>";
+                    oUl.appendChild(oLi);
+                }
+
+            })
+            oUl.style.display = "block";
+        }
+        //点击跳转到百度页面，并搜索其中内容
+        oBtn.onclick = function () {
+            var val = txt.value;
+            location.href = "http://www.baidu.com.cn/s?wd=" + val + "&cl=3";
+        }
+    </script>
+</body>
+
+</html>
